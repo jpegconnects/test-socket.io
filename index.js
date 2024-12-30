@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios')
 const http = require('http');
 const socketIo = require('socket.io');
 const cors = require('cors')
@@ -25,13 +26,30 @@ io.on('connection', (socket) => {
 });
 
 // esta ruta es para cuando un agente toma una videollamada sin estar disponible
-app.post('/videollamada-tomada', (req, res) => {
+app.post('/videollamada-tomada', async (req, res) => {
 
-  const {meet, idAgent} = req.body
+  const {meet, idAgent, messageId, nameClient, insurance, idClient} = req.body
 
   agenteTomoVideollamada(idAgent)
 
-  io.emit('videollamada tomada', '' + meet);
+  io.emit('videollamada tomada', {meet, idClient});
+
+  let data = {
+    BOT_ID: 231,
+    CLIENT_ID: 'gdqcp71f6tiq1wz8582lx7h3g66kmbe6',
+    DIALOG_ID: idAgent,
+    MESSAGE_ID: messageId,
+    KEYBOARD: [
+        {
+            "TEXT": "Entrar a la videollamada",
+            "LINK": `https://b24-demo.bitrix24.site/preview/0c30190deada172ca1884b11c9a53ec9/?ts=1735574857&meet=${meet}&idAgent=${idAgent}&messageId=${messageId}`
+        }
+    ],
+    MESSAGE: '[B]Cliente tomado[/B] [BR] [S]El cliente ' + nameClient + ' está a la espera de la videollamada (' + insurance + ')[/S] [BR] Selecciona tu estado actual: [send=Disponible]Disponible[/send] | [send=Ocupado]Ocupado[/send]',
+  }
+
+  const response = await axios.post('https://demo-egconnects.bitrix24.com/rest/221/vakzwrm21roibyj7/imbot.message.update', data)
+  
 
   res.send('videollamada tomada')
 })
@@ -73,3 +91,7 @@ app.use('/', routerSendMessage)
 server.listen(3001, () => {
   console.log('Server is running on port 3001');
 });
+
+module.exports = {
+  io
+}

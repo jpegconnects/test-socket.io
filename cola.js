@@ -1,29 +1,15 @@
 const agentesObj = {
-    // '223': {
-    //     id: '223',
-    //     name: 'Javier Soto',
-    //     displonible: false,
-    //     videoconferencia: 'https://demo-egconnects.bitrix24.com/video/M9DIFNym',
-    //     meet: 'M9DIFNym'
-    // },
-    '221': {
-        id: '221',
-        name: 'Jesuan Patermina',
-        displonible: false,
-        videoconferencia: 'https://demo-egconnects.bitrix24.com/video/4aKyLmAM',
-        meet: '4aKyLmAM'
+    '223': {
+        id: '223',
+        name: 'Javier Soto',
+        displonible: true,
+        videoconferencia: 'https://demo-egconnects.bitrix24.com/video/M9DIFNym',
+        meet: 'M9DIFNym'
     },
     '221': {
         id: '221',
         name: 'Jesuan Patermina',
-        displonible: false,
-        videoconferencia: 'https://demo-egconnects.bitrix24.com/video/4aKyLmAM',
-        meet: '4aKyLmAM'
-    },
-    '221': {
-        id: '221',
-        name: 'Jesuan Patermina',
-        displonible: false,
+        displonible: true,
         videoconferencia: 'https://demo-egconnects.bitrix24.com/video/4aKyLmAM',
         meet: '4aKyLmAM'
     },
@@ -36,8 +22,14 @@ const agentesObj = {
     // }
 }
 
-// const agentesArray = ['221', '223', '1']
-const agentesArray = ['221', '221', '221']
+const agentesArray = []
+
+for (const key in agentesObj) {
+    const agent = agentesObj[key]
+    agentesArray.push(agent.id)
+}
+
+console.log(agentesArray)
 
 // Esta función tranfiere la videollamada de un agente a otro
 const videollamadaTransferida = (id, idAgentTransfer) => {
@@ -70,7 +62,7 @@ const agenteOcupado = (id) => {
     if (id != '' && agentesObj[id]) {
         agentesObj[id].displonible = false
         let name = agentesObj[id].name
-        return `El agente ${name} ya no está disponible`
+        return agentesObj[id]
     }
     else {
         return 'El agente no existe'
@@ -82,7 +74,7 @@ const agregarAgenteDisponible = (id) => {
     if (id != '' && agentesObj[id]) {
         agentesObj[id].displonible = true
         let name = agentesObj[id].name
-        return `El agente ${name} está disponible`
+        return agentesObj[id]
     }
     else {
         return 'El agente no existe'
@@ -99,7 +91,7 @@ const anidada = () => {
         let agentesOcupados = 0
 
         while (buscandoAgente) {
-            if(cola === 2) {
+            if(cola >= agentesArray.length-1) {
                 cola = 0
             }
             else {
@@ -118,7 +110,7 @@ const anidada = () => {
                 agentesOcupados++
             }
 
-            if(agentesOcupados >= 3) {
+            if(agentesOcupados >= agentesArray.length) {
                 buscandoAgente = false
                 let info = {
                     agent: agentesObj[agentesArray[cola]],
@@ -127,7 +119,7 @@ const anidada = () => {
                     meet: agentesObj[agentesArray[cola]].meet
                 }
 
-                if(cola === 2) cola = 0
+                if(cola >= agentesArray.length-1) cola = 0
                 else cola++
 
                 return info
@@ -141,6 +133,7 @@ const anidada = () => {
 const queue = anidada()
 
 module.exports = {
+    agentesObj,
     queue,
     agregarAgenteDisponible,
     agenteOcupado,
