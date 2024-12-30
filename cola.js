@@ -111,6 +111,9 @@ const anidada = () => {
             }
 
             if(agentesOcupados >= agentesArray.length) {
+                if(cola >= agentesArray.length-1) cola = 0
+                else cola++
+                
                 buscandoAgente = false
                 let info = {
                     agent: agentesObj[agentesArray[cola]],
@@ -119,8 +122,6 @@ const anidada = () => {
                     meet: agentesObj[agentesArray[cola]].meet
                 }
 
-                if(cola >= agentesArray.length-1) cola = 0
-                else cola++
 
                 return info
             }
