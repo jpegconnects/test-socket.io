@@ -13,13 +13,13 @@ const agentesObj = {
         videoconferencia: 'https://demo-egconnects.bitrix24.com/video/4aKyLmAM',
         meet: '4aKyLmAM'
     },
-    // '1': {
-    //     id: '1',
-    //     name: 'María José Villalobos',
-    //     displonible: false,
-    //     videoconferencia: 'https://demo-egconnects.bitrix24.com/video/gb4THztp',
-    //     meet: 'gb4THztp'
-    // }
+    '5': {
+        id: '5',
+        name: 'Daniela Romero',
+        displonible: true,
+        videoconferencia: 'https://demo-egconnects.bitrix24.com/video/gb4THztp',
+        meet: 'gb4THztp'
+    },
 }
 
 const agentesArray = []
