@@ -1,28 +1,43 @@
 const agentesObj = {
-    '223': {
-        id: '223',
-        name: 'Javier Soto',
+    // '223': {
+    //     id: '223',
+    //     name: 'Javier Soto',
+    //     displonible: false,
+    //     videoconferencia: 'https://demo-egconnects.bitrix24.com/video/M9DIFNym',
+    //     meet: 'M9DIFNym'
+    // },
+    '221': {
+        id: '221',
+        name: 'Jesuan Patermina',
         displonible: false,
-        videoconferencia: 'https://demo-egconnects.bitrix24.com/video/M9DIFNym',
-        meet: 'M9DIFNym'
+        videoconferencia: 'https://demo-egconnects.bitrix24.com/video/4aKyLmAM',
+        meet: '4aKyLmAM'
     },
     '221': {
         id: '221',
         name: 'Jesuan Patermina',
-        displonible: true,
+        displonible: false,
         videoconferencia: 'https://demo-egconnects.bitrix24.com/video/4aKyLmAM',
         meet: '4aKyLmAM'
     },
-    '1': {
-        id: '1',
-        name: 'María José Villalobos',
+    '221': {
+        id: '221',
+        name: 'Jesuan Patermina',
         displonible: false,
-        videoconferencia: 'https://demo-egconnects.bitrix24.com/video/gb4THztp',
-        meet: 'gb4THztp'
-    }
+        videoconferencia: 'https://demo-egconnects.bitrix24.com/video/4aKyLmAM',
+        meet: '4aKyLmAM'
+    },
+    // '1': {
+    //     id: '1',
+    //     name: 'María José Villalobos',
+    //     displonible: false,
+    //     videoconferencia: 'https://demo-egconnects.bitrix24.com/video/gb4THztp',
+    //     meet: 'gb4THztp'
+    // }
 }
 
-const agentesArray = ['221', '223', '1']
+// const agentesArray = ['221', '223', '1']
+const agentesArray = ['221', '221', '221']
 
 // Esta función tranfiere la videollamada de un agente a otro
 const videollamadaTransferida = (id, idAgentTransfer) => {
