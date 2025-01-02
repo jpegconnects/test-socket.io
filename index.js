@@ -6,6 +6,7 @@ const cors = require('cors')
 const chatbot = require('./chatbot.js')
 const { queue, agregarAgenteDisponible, agenteTomoVideollamada, agenteOcupado } = require('./cola')
 const routerSendMessage = require('./sendMessage.js')
+require('dotenv').config()
 
 const app = express();
 app.use(express.json())
@@ -88,8 +89,10 @@ app.get('/agente-ocupado', (req, res) => {
 app.use('/', chatbot)
 app.use('/', routerSendMessage)
 
-server.listen(3001, () => {
-  console.log('Server is running on port 3001');
+const PORT = process.env.PORT | 3001
+
+server.listen(PORT, () => {
+  console.log('Server is running on port ' + PORT);
 });
 
 module.exports = {
