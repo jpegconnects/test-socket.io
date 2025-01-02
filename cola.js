@@ -81,6 +81,13 @@ const agregarAgenteDisponible = (id) => {
     }
 }
 
+const resetAgents = () => {
+    for (const key in agentesObj) {
+        const agent = agentesObj[key]
+        agent.displonible = true
+    }
+}
+
 // Esta función busca a un agente que esté disponible para asignarle una videollamada
 const anidada = () => {
 
@@ -139,5 +146,6 @@ module.exports = {
     agregarAgenteDisponible,
     agenteOcupado,
     agenteTomoVideollamada,
-    videollamadaTransferida
+    videollamadaTransferida,
+    resetAgents
 }

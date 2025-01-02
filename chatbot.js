@@ -1,8 +1,6 @@
 const express = require("express")
 const axios = require('axios')
 const { agentesObj, agregarAgenteDisponible, agenteOcupado } = require('./cola')
-const { afterEach } = require("node:test")
-const { isMarkedAsUntransferable } = require("node:worker_threads")
 // const { io } = require('./index.js')
 
 const router = express.Router()
@@ -10,6 +8,7 @@ const router = express.Router()
 router.post('/chatbot', async (req, res) => {
 
     let data = req.body.data
+    const idSender = data.PARAMS.AUTHOR_ID
 
     if(data.PARAMS.MESSAGE === 'Disponible') {
         let agent = agregarAgenteDisponible(data.PARAMS.AUTHOR_ID)
@@ -51,7 +50,11 @@ router.post('/chatbot', async (req, res) => {
     
             for (const key in agentesObj) {
                 const agent = agentesObj[key]
-                buttons += `[send=${agent.name}|${messageArray[1]}]${agent.name}[/send] | `
+
+                if(agent.id != data.PARAMS.AUTHOR_ID) {
+
+                    buttons += `[send=${agent.name}|${messageArray[1]}]${agent.name}[/send] | `
+                }
             }
     
             let body = {
@@ -99,8 +102,22 @@ router.post('/chatbot', async (req, res) => {
                     ]
         
                     axios.post('https://demo-egconnects.bitrix24.com/rest/221/vakzwrm21roibyj7/imbot.message.update.json', body)
-                    .then((data) => {
-                        console.log(data.data)
+                    .then(() => {
+
+                        let body = {
+                            BOT_ID: 231,
+                            CLIENT_ID: 'gdqcp71f6tiq1wz8582lx7h3g66kmbe6',
+                            DIALOG_ID: idSender,
+                            MESSAGE: `Selecciona tu estado actual: [BR] [send=Disponible]Disponible[/send] | [send=Ocupado]Ocupado[/send]`,
+                        }
+                
+                        axios.post('https://demo-egconnects.bitrix24.com/rest/221/vakzwrm21roibyj7/imbot.message.add.json', body)
+                        .then((data) => {
+                            console.log(data.data)
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                        })
                     })
                     .catch((error) => {
                         console.log(error)

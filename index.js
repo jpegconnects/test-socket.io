@@ -4,7 +4,7 @@ const http = require('http');
 const socketIo = require('socket.io');
 const cors = require('cors')
 const chatbot = require('./chatbot.js')
-const { queue, agregarAgenteDisponible, agenteTomoVideollamada, agenteOcupado } = require('./cola')
+const { queue, agregarAgenteDisponible, agenteTomoVideollamada, agenteOcupado, resetAgents } = require('./cola')
 const routerSendMessage = require('./sendMessage.js')
 require('dotenv').config()
 
@@ -49,8 +49,15 @@ app.post('/videollamada-tomada', async (req, res) => {
     MESSAGE: '[B]Cliente tomado[/B] [BR] [S]El cliente ' + nameClient + ' está a la espera de la videollamada (' + insurance + ')[/S] [BR] Selecciona tu estado actual: [send=Disponible]Disponible[/send] | [send=Ocupado]Ocupado[/send]',
   }
 
-  const response = await axios.post('https://demo-egconnects.bitrix24.com/rest/221/vakzwrm21roibyj7/imbot.message.update', data)
-  
+  try {
+
+    const response = await axios.post('https://demo-egconnects.bitrix24.com/rest/221/vakzwrm21roibyj7/imbot.message.update', data)
+
+  } catch (error) {
+    console.log(error)
+  }
+
+
 
   res.send('videollamada tomada')
 })
@@ -84,6 +91,13 @@ app.get('/agente-ocupado', (req, res) => {
   io.emit('agente ocupado', response);
 
   res.send('agente ocupado')
+})
+
+app.get('/reset-agents', (req, res) => {
+  
+  resetAgents()
+
+  res.send('agentes disponibles')
 })
 
 app.use('/', chatbot)
