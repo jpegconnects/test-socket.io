@@ -1,7 +1,7 @@
 const agentesObj = {
-    '223': {
-        id: '223',
-        name: 'Javier Soto',
+    '7': {
+        id: '7',
+        name: 'Martha Pineda',
         displonible: true,
         videoconferencia: 'https://demo-egconnects.bitrix24.com/video/M9DIFNym',
         meet: 'M9DIFNym'
