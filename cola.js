@@ -1,11 +1,4 @@
 const agentesObj = {
-    '7': {
-        id: '7',
-        name: 'Martha Pineda',
-        displonible: true,
-        videoconferencia: 'https://demo-egconnects.bitrix24.com/video/M9DIFNym',
-        meet: 'M9DIFNym'
-    },
     '221': {
         id: '221',
         name: 'Jesuan Patermina',
@@ -13,9 +6,16 @@ const agentesObj = {
         videoconferencia: 'https://demo-egconnects.bitrix24.com/video/4aKyLmAM',
         meet: '4aKyLmAM'
     },
-    '5': {
-        id: '5',
-        name: 'Daniela Romero',
+    '7': {
+        id: '7',
+        name: 'Martha Pineda',
+        displonible: true,
+        videoconferencia: 'https://demo-egconnects.bitrix24.com/video/M9DIFNym',
+        meet: 'M9DIFNym'
+    },
+    '1': {
+        id: '1',
+        name: 'María José Villalobos',
         displonible: true,
         videoconferencia: 'https://demo-egconnects.bitrix24.com/video/gb4THztp',
         meet: 'gb4THztp'
@@ -28,8 +28,6 @@ for (const key in agentesObj) {
     const agent = agentesObj[key]
     agentesArray.push(agent.id)
 }
-
-console.log(agentesArray)
 
 // Esta función tranfiere la videollamada de un agente a otro
 const videollamadaTransferida = (id, idAgentTransfer) => {
@@ -104,14 +102,12 @@ const anidada = () => {
             else {
                 cola++
             }
-            console.log(cola)
             
             if(agentesObj[agentesArray[cola]].displonible === true) {
                 buscandoAgente = false
                 agentesObj[agentesArray[cola]].displonible = false
-                let name = agentesObj[agentesArray[cola]].name
+                console.log(agentesObj[agentesArray[cola]].name)
                 return agentesObj[agentesArray[cola]]
-                // return `El agente ${name} fue asignado a un cliente`
             }
             else{
                 agentesOcupados++
@@ -121,6 +117,7 @@ const anidada = () => {
                 if(cola >= agentesArray.length-1) cola = 0
                 else cola++
                 
+                console.log(agentesObj[agentesArray[cola]].name)
                 buscandoAgente = false
                 let info = {
                     agent: agentesObj[agentesArray[cola]],

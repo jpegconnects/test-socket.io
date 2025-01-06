@@ -1,12 +1,17 @@
+require('dotenv').config()
 const express = require('express');
 const axios = require('axios')
 const http = require('http');
 const socketIo = require('socket.io');
 const cors = require('cors')
 const chatbot = require('./chatbot.js')
+
+
+// Routes
 const { queue, agregarAgenteDisponible, agenteTomoVideollamada, agenteOcupado, resetAgents } = require('./cola')
 const routerSendMessage = require('./sendMessage.js')
-require('dotenv').config()
+const routerCreateDeal = require('./createDeal.js')
+const routerLogin = require('./login.js')
 
 const app = express();
 app.use(express.json())
@@ -102,6 +107,8 @@ app.get('/reset-agents', (req, res) => {
 
 app.use('/', chatbot)
 app.use('/', routerSendMessage)
+app.use('/', routerCreateDeal)
+app.use('/', routerLogin)
 
 const PORT = process.env.PORT | 8080
 
