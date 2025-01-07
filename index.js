@@ -126,7 +126,14 @@ app.get('/reset-agents', (req, res) => {
   
   resetAgents()
 
-  res.send('agentes disponibles')
+  res.send(agentesObj)
+})
+
+app.get('/get-agents', (req, res) => {
+  
+  resetAgents()
+
+  res.send(agentesObj)
 })
 
 app.use('/', chatbot)
