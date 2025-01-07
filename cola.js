@@ -4,21 +4,33 @@ const agentesObj = {
         name: 'Jesuan Patermina',
         displonible: true,
         videoconferencia: 'https://demo-egconnects.bitrix24.com/video/4aKyLmAM',
-        meet: '4aKyLmAM'
+        meet: '4aKyLmAM',
+        attending: {
+            clientName: '',
+            dealId: ''
+        }
     },
     '7': {
         id: '7',
         name: 'Martha Pineda',
         displonible: true,
         videoconferencia: 'https://demo-egconnects.bitrix24.com/video/M9DIFNym',
-        meet: 'M9DIFNym'
+        meet: 'M9DIFNym',
+        attending: {
+            clientName: '',
+            dealId: ''
+        }
     },
     '1': {
         id: '1',
         name: 'María José Villalobos',
         displonible: true,
         videoconferencia: 'https://demo-egconnects.bitrix24.com/video/gb4THztp',
-        meet: 'gb4THztp'
+        meet: 'gb4THztp',
+        attending: {
+            clientName: '',
+            dealId: ''
+        }
     },
 }
 

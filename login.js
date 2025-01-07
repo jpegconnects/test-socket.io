@@ -25,17 +25,17 @@ router.post('/login', async (req, res) => {
 
             let id = responseDeal.data.result[0].ID
 
-            const response = await axios.post('https://demo-egconnects.bitrix24.com/rest/221/t9a366b47rs3tas0/crm.timeline.comment.add', {
-                fields: {
-                    "ENTITY_ID": id,
-                    "ENTITY_TYPE": "deal",
-                    "COMMENT": "Se ha creado una nueva consulta",
-                }
-            })
+            // const response = await axios.post('https://demo-egconnects.bitrix24.com/rest/221/t9a366b47rs3tas0/crm.timeline.comment.add', {
+            //     fields: {
+            //         "ENTITY_ID": id,
+            //         "ENTITY_TYPE": "deal",
+            //         "COMMENT": "Se ha creado una nueva consulta",
+            //     }
+            // })
 
-            console.log(response)
+            // console.log(response)
 
-            return res.send({existe: true})
+            return res.send({existe: true, deal: id})
         }
 
         return res.send({existe: false})

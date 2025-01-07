@@ -8,7 +8,7 @@ const chatbot = require('./chatbot.js')
 
 
 // Routes
-const { queue, agregarAgenteDisponible, agenteTomoVideollamada, agenteOcupado, resetAgents } = require('./cola')
+const { queue, agregarAgenteDisponible, agenteTomoVideollamada, agenteOcupado, resetAgents, agentesObj } = require('./cola')
 const routerSendMessage = require('./sendMessage.js')
 const routerCreateDeal = require('./createDeal.js')
 const routerLogin = require('./login.js')
@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
 // esta ruta es para cuando un agente toma una videollamada sin estar disponible
 app.post('/videollamada-tomada', async (req, res) => {
 
-  const {meet, idAgent, messageId, nameClient, insurance, idClient} = req.body
+  const {meet, idAgent, messageId, nameClient, insurance, idClient, deal} = req.body
 
   agenteTomoVideollamada(idAgent)
 
@@ -47,19 +47,36 @@ app.post('/videollamada-tomada', async (req, res) => {
     MESSAGE_ID: messageId,
     KEYBOARD: [
         {
-            "TEXT": "Entrar a la videollamada",
-            "LINK": `https://b24-demo.bitrix24.site/preview/0c30190deada172ca1884b11c9a53ec9/?ts=1735574857&meet=${meet}&idAgent=${idAgent}&messageId=${messageId}`
+          "TEXT": "Entrar a la videollamada",
+          "LINK": `https://b24-demo.bitrix24.site/preview/0c30190deada172ca1884b11c9a53ec9/?ts=1735574857&meet=${meet}&idAgent=${idAgent}&messageId=${messageId}`
         }
     ],
-    MESSAGE: '[B]Cliente tomado[/B] [BR] [S]El cliente ' + nameClient + ' está a la espera de la videollamada (' + insurance + ')[/S] [BR] Selecciona tu estado actual: [send=Disponible]Disponible[/send] | [send=Ocupado]Ocupado[/send]',
+    MESSAGE: '[B]Cliente tomado[/B] [BR] [S]El cliente ' + nameClient + ' está a la espera de la videollamada (' + insurance + ')[/S] [BR] [send=Consulta finalizada]Consulta finalizada[/send]',
   }
 
   try {
 
-    const response = await axios.post('https://demo-egconnects.bitrix24.com/rest/221/vakzwrm21roibyj7/imbot.message.update', data)
+    console.log(deal)
+
+    await axios.post('https://demo-egconnects.bitrix24.com/rest/221/t9a366b47rs3tas0/crm.timeline.comment.add', {
+        fields: {
+            "ENTITY_ID": deal,
+            "ENTITY_TYPE": "deal",
+            "AUTHOR_ID": idAgent,
+            "COMMENT": "Se ha creado una nueva consulta",
+        }
+    })
+
+    await axios.post('https://demo-egconnects.bitrix24.com/rest/221/vakzwrm21roibyj7/imbot.message.update', data)
+
+    agentesObj[idAgent].attending = {
+      clientName: nameClient,
+      dealId: deal
+  }
 
   } catch (error) {
     console.log(error)
+    console.log(deal)
   }
 
 
