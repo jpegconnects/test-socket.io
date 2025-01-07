@@ -43,7 +43,7 @@ router.post('/chatbot', async (req, res) => {
                 }
             }
     
-            console.log(agent, agentesObj)
+            console.log(agentesObj)
         }
     
         if(data.PARAMS.MESSAGE.toLowerCase() === 'ocupado') {
@@ -64,25 +64,63 @@ router.post('/chatbot', async (req, res) => {
         if(data.PARAMS.MESSAGE.toLowerCase() === 'transferir videollamada') {
     
             let buttons = ''
+            let buttonsAllAgents = ''
+            let message = ''
     
             for (const key in agentesObj) {
                 const agent = agentesObj[key]
 
-                // if(agent.id != data.PARAMS.AUTHOR_ID) {
+                if(agent.id != data.PARAMS.AUTHOR_ID) {
 
-                    buttons += `[send=${agent.name}]${agent.name}[/send] | `
-                // }
+                    buttonsAllAgents += `[send=${agent.name}]${agent.name}[/send] [B]${agent.displonible == false ? 'Ocupado' : 'Disponible'}[/B]\n`
+                    
+                    if(agent.displonible) {
+                        buttons += `[send=${agent.name}]${agent.name}[/send]\n`
+                    }
+                }
+            }
+
+            message = `Agentes disponibles:\n ${buttons}`
+
+            if(buttons == '') {
+                message = `No hay agentes disponibles:\n ${buttonsAllAgents}`
             }
     
             let body = {
                 BOT_ID: 231,
                 CLIENT_ID: 'gdqcp71f6tiq1wz8582lx7h3g66kmbe6',
                 DIALOG_ID: data.PARAMS.AUTHOR_ID,
-                MESSAGE: `Transferir a ${buttons}`,
+                MESSAGE: message += '\n[send=Mostrar todos los agentes]Mostrar todos los agentes[/send]',
             }
     
             await axios.post('https://demo-egconnects.bitrix24.com/rest/221/vakzwrm21roibyj7/imbot.message.add.json', body)
     
+        }
+
+        if(data.PARAMS.MESSAGE.toLowerCase() === 'mostrar todos los agentes') {
+
+            let buttonsAllAgents = ''
+            let message = ''
+    
+            for (const key in agentesObj) {
+                const agent = agentesObj[key]
+
+                if(agent.id != data.PARAMS.AUTHOR_ID) {
+
+                    buttonsAllAgents += `[send=${agent.name}]${agent.name}[/send] [B]${agent.displonible == false ? 'Ocupado' : 'Disponible'}[/B]\n`
+                }
+            }
+
+            message = `Todos los agentes:\n ${buttonsAllAgents}`
+    
+            let body = {
+                BOT_ID: 231,
+                CLIENT_ID: 'gdqcp71f6tiq1wz8582lx7h3g66kmbe6',
+                DIALOG_ID: data.PARAMS.AUTHOR_ID,
+                MESSAGE: message,
+            }
+    
+            await axios.post('https://demo-egconnects.bitrix24.com/rest/221/vakzwrm21roibyj7/imbot.message.add.json', body)
         }
     
         for (const key in agentesObj) {
