@@ -1,6 +1,6 @@
 const express = require("express")
 const axios = require('axios')
-const {queue} = require('./cola')
+const {queue, agentesObj} = require('./cola')
 
 const router = express.Router()
 
@@ -25,7 +25,14 @@ router.post('/sendMessage', async (req, res) => {
                         "LINK": `https://b24-demo.bitrix24.site/preview/0c30190deada172ca1884b11c9a53ec9/?ts=1735574857&meet=${reponseAgentAvailable.meet}&insurance=${insurance}&idAgent=${reponseAgentAvailable.id}&nameClient=${nameClient}&idClient=${idClient}&deal=${deal}`
                     }
                 ],
-                MESSAGE: 'El cliente ' + nameClient + ' está a la espera de la videollamada (' + insurance + ') [BR] [send=Transferir videollamada|' + idClient + ']Transferir videollamada[/send]',
+                MESSAGE: 'El cliente ' + nameClient + ' está a la espera de la videollamada (' + insurance + ') [BR] [send=Transferir videollamada]Transferir videollamada[/send]',
+            }
+
+            agentesObj[reponseAgentAvailable.id].customerWaiting = {
+                name: nameClient,
+                insurance: insurance,
+                clientId: idClient,
+                dealId: deal
             }
 
             if(reponseAgentAvailable.agentesDisponibles == false) {

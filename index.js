@@ -72,6 +72,13 @@ app.post('/videollamada-tomada', async (req, res) => {
     agentesObj[idAgent].attending = {
       clientName: nameClient,
       dealId: deal
+    }
+
+    agentesObj[idAgent].customerWaiting = {
+      name: '',
+      insurance: '',
+      clientId: '',
+      dealId: ''
   }
 
   } catch (error) {
