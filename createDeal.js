@@ -39,7 +39,7 @@ router.post('/create-deal', async (req, res) => {
             }
         )
     
-        return res.send({creado: true, existe: false, deal: DealExist.data.result[0].ID})
+        return res.send({creado: true, existe: false, deal: DealExist.data.result})
     } catch (error) {
         console.log(error)
     }
