@@ -22,7 +22,7 @@ router.post('/sendMessage', async (req, res) => {
                 KEYBOARD: [
                     {
                         "TEXT": "Entrar a la videollamada",
-                        "LINK": `https://b24-demo.bitrix24.site/preview/0c30190deada172ca1884b11c9a53ec9/?ts=1735574857&meet=${reponseAgentAvailable.meet}&insurance=${insurance}&idAgent=${reponseAgentAvailable.id}&nameClient=${nameClient}&idClient=${idClient}&deal=${deal}`
+                        "LINK": `https://b24-w21mkt.bitrix24.site/?meet=${reponseAgentAvailable.meet}&insurance=${insurance}&idAgent=${reponseAgentAvailable.id}&nameClient=${nameClient}&idClient=${idClient}&deal=${deal}`
                     }
                 ],
                 MESSAGE: 'El cliente ' + nameClient + ' está a la espera de la videollamada (' + insurance + ') [BR] [send=Transferir videollamada]Transferir videollamada[/send]',
@@ -43,7 +43,7 @@ router.post('/sendMessage', async (req, res) => {
                 data.KEYBOARD = [
                     {
                         "TEXT": "Entrar a la videollamada",
-                        "LINK": `https://b24-demo.bitrix24.site/preview/0c30190deada172ca1884b11c9a53ec9/?ts=1735574857&meet=${reponseAgentAvailable.meet}&insurance=${insurance}&idAgent=${reponseAgentAvailable.id}&nameClient=${nameClient}&idClient=${idClient}&deal=${deal}&messageId=${response.data.result}`
+                        "LINK": `https://b24-w21mkt.bitrix24.site/?meet=${reponseAgentAvailable.meet}&insurance=${insurance}&idAgent=${reponseAgentAvailable.id}&nameClient=${nameClient}&idClient=${idClient}&deal=${deal}&messageId=${response.data.result}`
                     }
                 ]
     
@@ -60,7 +60,7 @@ router.post('/sendMessage', async (req, res) => {
             data.KEYBOARD = [
                 {
                     "TEXT": "Entrar a la videollamada",
-                    "LINK": `https://b24-demo.bitrix24.site/preview/0c30190deada172ca1884b11c9a53ec9/?ts=1735574857&meet=${reponseAgentAvailable.meet}&insurance=${insurance}&idAgent=${reponseAgentAvailable.id}&nameClient=${nameClient}&idClient=${idClient}&deal=${deal}&messageId=${response.data.result}`
+                    "LINK": `https://b24-w21mkt.bitrix24.site/?meet=${reponseAgentAvailable.meet}&insurance=${insurance}&idAgent=${reponseAgentAvailable.id}&nameClient=${nameClient}&idClient=${idClient}&deal=${deal}&messageId=${response.data.result}`
                 }
             ]
 

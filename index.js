@@ -48,7 +48,7 @@ app.post('/videollamada-tomada', async (req, res) => {
     KEYBOARD: [
         {
           "TEXT": "Entrar a la videollamada",
-          "LINK": `https://b24-demo.bitrix24.site/preview/0c30190deada172ca1884b11c9a53ec9/?ts=1735574857&meet=${meet}&idAgent=${idAgent}&messageId=${messageId}`
+          "LINK": `https://b24-w21mkt.bitrix24.site/?meet=${meet}&idAgent=${idAgent}&messageId=${messageId}`
         }
     ],
     MESSAGE: '[B]Cliente tomado[/B] [BR] [S]El cliente ' + nameClient + ' está a la espera de la videollamada (' + insurance + ')[/S] [BR] [send=Consulta finalizada]Consulta finalizada[/send]',

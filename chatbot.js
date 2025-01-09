@@ -147,7 +147,7 @@ router.post('/chatbot', async (req, res) => {
                     KEYBOARD: [
                         {
                             "TEXT": "Entrar a la videollamada",
-                            "LINK": `https://b24-demo.bitrix24.site/preview/0c30190deada172ca1884b11c9a53ec9/?ts=1735574857&meet=${agent.meet}&insurance=${insurance}&idAgent=${agent.id}&nameClient=${clientName}&idClient=${clientId}&deal=${dealId}`
+                            "LINK": `https://b24-w21mkt.bitrix24.site/?meet=${agent.meet}&insurance=${insurance}&idAgent=${agent.id}&nameClient=${clientName}&idClient=${clientId}&deal=${dealId}`
                         }
                     ],
                     MESSAGE: 'El cliente ' + clientName + ' está a la espera de la videollamada (' + insurance + ') [BR] [send=Transferir videollamada]Transferir videollamada[/send]',
@@ -162,7 +162,7 @@ router.post('/chatbot', async (req, res) => {
                     body.KEYBOARD = [
                         {
                             "TEXT": "Entrar a la videollamada",
-                            "LINK": `https://b24-demo.bitrix24.site/preview/0c30190deada172ca1884b11c9a53ec9/?ts=1735574857&meet=${agent.meet}&insurance=${insurance}&idAgent=${agent.id}&nameClient=${clientName}&idClient=${clientId}&deal=${dealId}&messageId=${messageId}`
+                            "LINK": `https://b24-w21mkt.bitrix24.site/?meet=${agent.meet}&insurance=${insurance}&idAgent=${agent.id}&nameClient=${clientName}&idClient=${clientId}&deal=${dealId}&messageId=${messageId}`
                         }
                     ]
         
