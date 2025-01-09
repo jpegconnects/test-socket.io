@@ -130,9 +130,6 @@ app.get('/reset-agents', (req, res) => {
 })
 
 app.get('/get-agents', (req, res) => {
-  
-  resetAgents()
-
   res.send(agentesObj)
 })
 
