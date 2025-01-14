@@ -1,7 +1,6 @@
 const express = require("express")
 const axios = require('axios')
 const { agentesObj, agregarAgenteDisponible, agenteOcupado } = require('./cola')
-// const { io } = require('./index.js')
 
 const router = express.Router()
 
@@ -28,12 +27,43 @@ router.post('/chatbot', async (req, res) => {
 
                 let dealId = agentesObj[idSender].attending.dealId
 
+                let response = await axios.get(`https://demo-egconnects.bitrix24.com/rest/221/t9a366b47rs3tas0/crm.timeline.comment.get.json?id=${agent.attending.timelineId}`)
+
+                let fechaInicio = new Date(response.data.result.CREATED)
+                let fechaFin = new Date()
+
+                let options = {timeZone: 'America/Caracas'};
+                fechaInicio = fechaInicio.toISOString('en-US', options);
+                fechaFin = fechaFin.toISOString('en-US', options);
+
+                fechaInicio = new Date(fechaInicio)
+                fechaFin = new Date(fechaFin)
+
+                const calcularDiferenciaMinutos = (fecha1, fecha2) => {
+                    // Asegurarse que ambos argumentos sean objetos Date
+                    if (!(fecha1 instanceof Date) || !(fecha2 instanceof Date)) {
+                    throw new Error("Los argumentos deben ser objetos Date");
+                    }
+                
+                    // Calcular la diferencia en milisegundos
+                    const diferenciaMilisegundos = Math.abs(fecha2 - fecha1);
+                
+                    // Convertir la diferencia a minutos
+                    const diferenciaMinutos = Math.ceil(diferenciaMilisegundos / (1000 * 60));
+                
+                    return diferenciaMinutos;
+                }
+
+                const duration = calcularDiferenciaMinutos(fechaInicio, fechaFin)
+                
+                let message = "Se finalizó la consulta. \nDuración de la videollamada: " + duration + " " + (duration == 1 ? "minuto" : "minutos")
+
                 await axios.post('https://demo-egconnects.bitrix24.com/rest/221/t9a366b47rs3tas0/crm.timeline.comment.add', {
                     fields: {
                         "ENTITY_ID": dealId,
                         "ENTITY_TYPE": "deal",
                         "AUTHOR_ID": idSender,
-                        "COMMENT": "Se finalizó la consulta",
+                        "COMMENT": message,
                     }
                 })
 
@@ -42,8 +72,6 @@ router.post('/chatbot', async (req, res) => {
                     dealId: ''
                 }
             }
-    
-            console.log(agentesObj)
         }
     
         if(data.PARAMS.MESSAGE.toLowerCase() === 'ocupado') {
@@ -197,7 +225,7 @@ router.post('/chatbot', async (req, res) => {
 
         return res.json({message: 'Mensaje recibido'})
     } catch (error) {
-        console.log(error)
+        console.log(error.response.data)
     }
 
 })

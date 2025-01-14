@@ -7,7 +7,8 @@ const agentesObj = {
         meet: '4aKyLmAM',
         attending: {
             clientName: '',
-            dealId: ''
+            dealId: '',
+            timelineId: ''
         },
         customerWaiting: {
             name: '',
@@ -24,7 +25,8 @@ const agentesObj = {
         meet: 'M9DIFNym',
         attending: {
             clientName: '',
-            dealId: ''
+            dealId: '',
+            timelineId: ''
         },
         customerWaiting: {
             name: '',
@@ -41,7 +43,8 @@ const agentesObj = {
         meet: 'gb4THztp',
         attending: {
             clientName: '',
-            dealId: ''
+            dealId: '',
+            timelineId: ''
         },
         customerWaiting: {
             name: '',

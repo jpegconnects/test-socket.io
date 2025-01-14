@@ -58,7 +58,7 @@ app.post('/videollamada-tomada', async (req, res) => {
 
     console.log(deal)
 
-    await axios.post('https://demo-egconnects.bitrix24.com/rest/221/t9a366b47rs3tas0/crm.timeline.comment.add', {
+    const responseTimeline = await axios.post('https://demo-egconnects.bitrix24.com/rest/221/t9a366b47rs3tas0/crm.timeline.comment.add', {
         fields: {
             "ENTITY_ID": deal,
             "ENTITY_TYPE": "deal",
@@ -71,7 +71,8 @@ app.post('/videollamada-tomada', async (req, res) => {
 
     agentesObj[idAgent].attending = {
       clientName: nameClient,
-      dealId: deal
+      dealId: deal,
+      timelineId: responseTimeline.data.result
     }
 
     agentesObj[idAgent].customerWaiting = {
@@ -85,8 +86,6 @@ app.post('/videollamada-tomada', async (req, res) => {
     console.log(error)
     console.log(deal)
   }
-
-
 
   res.send('videollamada tomada')
 })
